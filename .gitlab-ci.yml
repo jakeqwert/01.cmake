@@ -1,0 +1,44 @@
+# To contribute improvements to CI/CD templates, please follow the Development guide at:
+# https://docs.gitlab.com/ee/development/cicd/templates.html
+# This specific template is located at:
+# https://gitlab.com/gitlab-org/gitlab/-/blob/master/lib/gitlab/ci/templates/C++.gitlab-ci.yml
+
+# use the official gcc image, based on debian
+# can use versions as well, like gcc:5.2
+# see https://hub.docker.com/_/gcc/
+#image: gcc
+image: xenial
+
+build:
+  # instead of calling g++ directly you can also use some build toolkit like make
+  # install the necessary build tools when needed
+  before_script:
+    - apt-get update && apt-get -y install cmake autoconf libboost-test-dev libspdlog-dev
+
+  stage: build
+  script:
+#    - g++ helloworld.cpp -o mybinary
+    - cmake .
+    - cmake --build .
+    - cmake --build . --target test
+    - cmake --build . --target package
+#  artifacts:
+#    paths:
+#      - mybinary
+      # depending on your build setup it's most likely a good idea to cache outputs to reduce the build time
+      # cache:
+      #   paths:
+      #     - "*.o"
+
+# run tests using the binary built before
+#test:
+#  stage: test
+#  script:
+#    - ./runmytests.sh
+
+deploy1:
+  stage: deploy
+  script:
+#    - echo "Do your deploy here"
+#    - curl -f -T cmake-0.0.$TRAVIS_BUILD_NUMBER-Linux.deb -ushebdim:$BINTRAY_API_KEY "https://api.bintray.com/content/shebdim/otus-cpp/homework/$TRAVIS_BUILD_NUMBER/cmake-0.0.$TRAVIS_BUILD_NUMBER-Linux.deb;deb_distribution=xenial;deb_component=main;deb_architecture=amd64;publish=1"
+    - curl -f -T helloworld_project-0.0.$TRAVIS_BUILD_NUMBER-Linux.deb -ueliseevz@mail.ru:$BINTRAY_API_KEY -XPUT "https://jakekobra.jfrog.io/artifactory/study-cpp/homework/$TRAVIS_BUILD_NUMBER/helloworld_project-0.0.$TRAVIS_BUILD_NUMBER-Linux.deb;deb.distribution=xenial;deb.component=main;deb.architecture=amd64;publish=1"

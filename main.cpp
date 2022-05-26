@@ -1,6 +1,7 @@
 #include "lib.h"
 
-#include <spdlog/spdlog.h>
+#include <spdlog/spdlog.h> // для локальной сборки sudo apt install libspdlog-dev
+                           // travis CI подготовит образ с пакетом нужным
 
 int main()
 {
