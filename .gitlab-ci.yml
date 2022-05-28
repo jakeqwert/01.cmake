@@ -7,7 +7,8 @@
 # can use versions as well, like gcc:5.2
 # see https://hub.docker.com/_/gcc/
 #image: gcc
-image: xenial
+#image: xenial
+image: bionic
 
 build:
   # instead of calling g++ directly you can also use some build toolkit like make
