@@ -17,7 +17,7 @@ build:
   # install the necessary build tools when needed
   # autoconf g++
   before_script:
-    - apt-get update && apt-get -y install file curl build-essential cmake libboost-test-dev libspdlog-dev
+    - apt-get update && apt-get -y install file build-essential cmake libboost-test-dev libspdlog-dev
 
   stage: build
   script:
@@ -46,8 +46,15 @@ build:
 #    - ./runmytests.sh
 
 deploy1:
+  before_script:
+    - apt-get update && apt-get -y install curl
+
   stage: deploy
+#  when: always  # будет выполнен вне зависимости от результатов выполнения предыдущих этапов
   script:
 #    - echo "Do your deploy here"
 #    - curl -f -T cmake-0.0.$TRAVIS_BUILD_NUMBER-Linux.deb -ushebdim:$BINTRAY_API_KEY "https://api.bintray.com/content/shebdim/otus-cpp/homework/$TRAVIS_BUILD_NUMBER/cmake-0.0.$TRAVIS_BUILD_NUMBER-Linux.deb;deb_distribution=xenial;deb_component=main;deb_architecture=amd64;publish=1"
     - curl -f -T helloworld_project-0.0.$TRAVIS_BUILD_NUMBER-Linux.deb -ueliseevz@mail.ru:$BINTRAY_API_KEY -XPUT "https://jakekobra.jfrog.io/artifactory/study-cpp/homework/$TRAVIS_BUILD_NUMBER/helloworld_project-0.0.$TRAVIS_BUILD_NUMBER-Linux.deb;deb.distribution=xenial;deb.component=main;deb.architecture=amd64;publish=1"
+#  only:         # шаг будет выполняться для веток develop и docker
+#    - develop
+#    - docker
