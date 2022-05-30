@@ -25,13 +25,15 @@ build:
     - cmake --build .
     - cmake --build . --target test
     - cmake --build . --target package
-#  artifacts:
-#    paths:
+  artifacts:
+    paths:     # прикрепляем как обычные файлы
 #      - mybinary
       # depending on your build setup it's most likely a good idea to cache outputs to reduce the build time
       # cache:
       #   paths:
       #     - "*.o"
+      - "/builds/root/01.cmake/CMakeFiles/CMakeOutput.log"
+      - "/builds/root/01.cmake/CMakeFiles/CMakeError.log"
 
 #See also "/builds/root/01.cmake/CMakeFiles/CMakeOutput.log".
 #See also "/builds/root/01.cmake/CMakeFiles/CMakeError.log".

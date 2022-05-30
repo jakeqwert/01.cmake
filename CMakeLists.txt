@@ -1,5 +1,9 @@
 cmake_minimum_required(VERSION 3.2)
 
+# git add .gitlab-ci.yml CMakeLists.txt
+# git commit -m "CMakeLists.txt for Gitlab CI"
+# git push -u origin master
+
 # project(cmake VERSION 0.0.$ENV{TRAVIS_BUILD_NUMBER})
 # Jenkins    $BUILD_NUMBER
 
