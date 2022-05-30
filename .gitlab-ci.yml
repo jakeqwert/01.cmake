@@ -15,9 +15,9 @@ image: ubuntu:bionic
 build:
   # instead of calling g++ directly you can also use some build toolkit like make
   # install the necessary build tools when needed
-  # autoconf g++ cmake
+  # autoconf g++
   before_script:
-    - apt-get update && apt-get -y install build-essential libboost-test-dev libspdlog-dev
+    - apt-get update && apt-get -y install build-essential cmake libboost-test-dev libspdlog-dev
 
   stage: build
   script:
