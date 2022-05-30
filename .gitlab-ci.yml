@@ -62,8 +62,8 @@ build:
 #    - ./runmytests.sh
 
 deploy1:
-#  before_script:
-#    - apt-get update && apt-get -y install curl
+  before_script:
+    - apt-get update && apt-get -y install curl
 
   stage: deploy
 #  when: always  # будет выполнен вне зависимости от результатов выполнения предыдущих этапов
