@@ -32,8 +32,8 @@ build:
       # cache:
       #   paths:
       #     - "*.o"
-      - "/builds/root/01.cmake/CMakeFiles/CMakeOutput.log"
-      - "/builds/root/01.cmake/CMakeFiles/CMakeError.log"
+      - /builds/root/01.cmake/CMakeFiles/CMakeOutput.log
+      - /builds/root/01.cmake/CMakeFiles/CMakeError.log
 
 #See also "/builds/root/01.cmake/CMakeFiles/CMakeOutput.log".
 #See also "/builds/root/01.cmake/CMakeFiles/CMakeError.log".
