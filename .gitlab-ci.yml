@@ -17,7 +17,7 @@ build:
   # install the necessary build tools when needed
   # autoconf g++
   before_script:
-    - apt-get update && apt-get -y install build-essential cmake libboost-test-dev libspdlog-dev
+    - apt-get update && apt-get -y install file build-essential cmake libboost-test-dev libspdlog-dev
 
   stage: build
   script:

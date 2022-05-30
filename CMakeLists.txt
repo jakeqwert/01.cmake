@@ -43,7 +43,7 @@ add_executable(helloworld_cli main.cpp)
 
 
 add_library(helloworld lib.cpp)
-# статическая библиотека (по-умолчанию) helloworld исполняемый файл
+# статическая библиотека (по-умолчанию) helloworld исполняемый файл libhelloworld.a
 
 # add_library(helloworld shared lib.cpp)
 # shared динамическая библиотека helloworld исполняемый файл
