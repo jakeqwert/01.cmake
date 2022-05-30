@@ -12,6 +12,14 @@
 #  docker pull ubuntu:bionic
 image: ubuntu:bionic
 
+stages:
+  - build
+  - deploy1
+
+before_script:      # перед каждым job
+  - echo "Hello"
+
+
 build:
   # instead of calling g++ directly you can also use some build toolkit like make
   # install the necessary build tools when needed
@@ -39,6 +47,11 @@ build:
       - build
     expire_in: 1 week
 
+  cache:
+    key: build-cache
+    paths:
+      - /builds/root/01.cmake
+
 #See also "/builds/root/01.cmake/CMakeFiles/CMakeOutput.log".
 #See also "/builds/root/01.cmake/CMakeFiles/CMakeError.log".
 
@@ -64,3 +77,7 @@ deploy1:
 #  only:         # шаг будет выполняться для веток develop и docker
 #    - develop
 #    - docker
+  cache:
+    key: build-cache
+    paths:
+      - /builds/root/01.cmake
