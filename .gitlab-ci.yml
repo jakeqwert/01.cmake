@@ -14,7 +14,7 @@ image: ubuntu:bionic
 
 stages:
   - build
-  - deploy1
+  - deploy
 
 before_script:      # перед каждым job
   - echo "Hello"
