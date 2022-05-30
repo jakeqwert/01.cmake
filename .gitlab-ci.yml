@@ -35,9 +35,9 @@ build:
       #     - "*.o"
       - /builds/root/01.cmake/CMakeFiles/CMakeOutput.log
       - /builds/root/01.cmake/CMakeFiles/CMakeError.log
-      - /builds/root/01.cmake/cmake-0.0.11-Linux.deb
+      - /builds/root/01.cmake/*-Linux.deb
       - build
-    expire_in: 1 week 
+    expire_in: 1 week
 
 #See also "/builds/root/01.cmake/CMakeFiles/CMakeOutput.log".
 #See also "/builds/root/01.cmake/CMakeFiles/CMakeError.log".
@@ -54,6 +54,8 @@ deploy1:
 
   stage: deploy
 #  when: always  # будет выполнен вне зависимости от результатов выполнения предыдущих этапов
+  dependencies:
+    - build
   script:
 #    - echo "Do your deploy here"
 #    - curl -f -T cmake-0.0.$TRAVIS_BUILD_NUMBER-Linux.deb -ushebdim:$BINTRAY_API_KEY "https://api.bintray.com/content/shebdim/otus-cpp/homework/$TRAVIS_BUILD_NUMBER/cmake-0.0.$TRAVIS_BUILD_NUMBER-Linux.deb;deb_distribution=xenial;deb_component=main;deb_architecture=amd64;publish=1"
