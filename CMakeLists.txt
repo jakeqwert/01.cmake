@@ -2,11 +2,14 @@ cmake_minimum_required(VERSION 3.2)
 
 # project(cmake VERSION 0.0.$ENV{TRAVIS_BUILD_NUMBER})
 # Jenkins    $BUILD_NUMBER
+
+# Gitlab CI нет переменной VERSION
+project(cmake)
 # Gitlab CI  $CI_PIPELINE_IID  CI_PIPELINE_ID  CI_COMMIT_SHA CI_COMMIT_SHORT_SHA
 #                       docker build . -t myapp:$CI_COMMIT_SHA
 #project(cmake VERSION 0.0.1$ENV{CI_COMMIT_SHORT_SHA})
 #project(cmake VERSION 0.0.1$ENV{TRAVIS_BUILD_NUMBER})
-project(cmake VERSION 0.0.2)
+
 # имя проекта = cmake
 # автоматом сформировалось 3 переменные
 # ${PROJECT_VERSION_MAJOR}  0

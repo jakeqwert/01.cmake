@@ -33,6 +33,9 @@ build:
       #   paths:
       #     - "*.o"
 
+#See also "/builds/root/01.cmake/CMakeFiles/CMakeOutput.log".
+#See also "/builds/root/01.cmake/CMakeFiles/CMakeError.log".
+
 # run tests using the binary built before
 #test:
 #  stage: test
