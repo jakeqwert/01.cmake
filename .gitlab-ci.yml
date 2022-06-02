@@ -37,7 +37,7 @@ build:
     - cmake --build . --target test
     - cmake --build . --target package
   artifacts:
-    untracked: true #для добавления всех неотслеживаемых файлов Git в качестве артефактов (вместе с путями, определенными в artifacts:paths)
+#    untracked: true #для добавления всех неотслеживаемых файлов Git в качестве артефактов (вместе с путями, определенными в artifacts:paths)
     paths:     # прикрепляем как обычные файлы
 #      - mybinary
       # depending on your build setup it's most likely a good idea to cache outputs to reduce the build time
