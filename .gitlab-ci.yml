@@ -50,10 +50,10 @@ build:
       - ${CI_PROJECT_DIR}   # /builds/root/01.cmake
     expire_in: 1 week
 
-  cache:
-    key: build-cache
-    paths:
-      - ${CI_PROJECT_DIR}   # /builds/root/01.cmake
+#  cache:
+#    key: build-cache
+#    paths:
+#      - ${CI_PROJECT_DIR}   # /builds/root/01.cmake
 
 #See also "/builds/root/01.cmake/CMakeFiles/CMakeOutput.log".
 #See also "/builds/root/01.cmake/CMakeFiles/CMakeError.log".
