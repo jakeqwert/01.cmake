@@ -71,11 +71,11 @@ build:
 deploy1:
   before_script:
 #    - apt-get update && apt-get -y install curl
-    - echo ${CI_PROJECT_DIR}   # /builds/root/01.cmake
+    - echo ${CI_PROJECT_DIR} #/home/gitlab-runner/builds/ptG68v6S/0/root/01.cmake  # /builds/root/01.cmake
     - echo $CI_REGISTRY
-    - echo $CI_PROJECT_PATH
-    - echo $CI_COMMIT_REF_SLUG
-    - echo $CI_BUILD_REF
+    - echo $CI_PROJECT_PATH  # root/01.cmake
+    - echo $CI_COMMIT_REF_SLUG  # master
+    - echo $CI_BUILD_REF     # 6bf534881620ee9016d6fdbee778d0b5786dc900
   stage: deploy
 #  when: always  # будет выполнен вне зависимости от результатов выполнения предыдущих этапов
   tags:
@@ -90,7 +90,7 @@ deploy1:
 #    - curl -f -T cmake-0.0.$TRAVIS_BUILD_NUMBER-Linux.deb -ueliseevz@mail.ru:$BINTRAY_API_KEY -XPUT "https://jakekobra.jfrog.io/artifactory/study-cpp/homework/$TRAVIS_BUILD_NUMBER/helloworld_project-0.0.$TRAVIS_BUILD_NUMBER-Linux.deb;deb.distribution=xenial;deb.component=main;deb.architecture=amd64;publish=1"
 
 #    - curl -f -T cmake-0.0.${PROJECT_VERSION_PATCH}-Linux.deb -ueliseevz@mail.ru:$BINTRAY_API_KEY -XPUT "https://jakekobra.jfrog.io/artifactory/study-cpp/homework/$TRAVIS_BUILD_NUMBER/helloworld_project-0.0.$TRAVIS_BUILD_NUMBER-Linux.deb;deb.distribution=xenial;deb.component=main;deb.architecture=amd64;publish=1"
-     - curl -f -T cmake-..11-Linux.deb -ueliseevz@mail.ru:$BINTRAY_API_KEY -XPUT "https://jakekobra.jfrog.io/artifactory/study-cpp/homework/$TRAVIS_BUILD_NUMBER/helloworld_project-0.0.$TRAVIS_BUILD_NUMBER-Linux.deb;deb.distribution=xenial;deb.component=main;deb.architecture=amd64;publish=1"
+     - curl -f -T cmake-..11-Linux.deb -ueliseevz@mail.ru:$BINTRAY_API_KEY -XPUT "https://jakekobra.jfrog.io/artifactory/study-cpp/homework/11/helloworld_project-0.0.11-Linux.deb;deb.distribution=xenial;deb.component=main;deb.architecture=amd64;publish=1"
 
 #  only:         # шаг будет выполняться для веток branch develop и docker
 #    - develop
