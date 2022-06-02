@@ -9,7 +9,7 @@ cmake_minimum_required(VERSION 3.2)
 
 # Gitlab CI нет переменной VERSION
 project(cmake)
-set(PROJECT_VERSION_PATCH 11)
+set(PROJECT_VERSION_PATCH 12)
 
 # Gitlab CI  $CI_PIPELINE_IID  CI_PIPELINE_ID  CI_COMMIT_SHA CI_COMMIT_SHORT_SHA
 #                       docker build . -t myapp:$CI_COMMIT_SHA
