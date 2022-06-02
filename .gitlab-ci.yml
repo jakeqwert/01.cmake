@@ -28,6 +28,8 @@ build:
     - apt-get update && apt-get -y install file build-essential cmake libboost-test-dev libspdlog-dev
 
   stage: build
+  tags:
+    - docker
   script:
 #    - g++ helloworld.cpp -o mybinary
     - cmake .
@@ -35,22 +37,23 @@ build:
     - cmake --build . --target test
     - cmake --build . --target package
   artifacts:
+    untracked: true #для добавления всех неотслеживаемых файлов Git в качестве артефактов (вместе с путями, определенными в artifacts:paths)
     paths:     # прикрепляем как обычные файлы
 #      - mybinary
       # depending on your build setup it's most likely a good idea to cache outputs to reduce the build time
       # cache:
       #   paths:
       #     - "*.o"
-      - /builds/root/01.cmake/CMakeFiles/CMakeOutput.log
-      - /builds/root/01.cmake/CMakeFiles/CMakeError.log
-      - /builds/root/01.cmake/*-Linux.deb
-      - build
+#      - /builds/root/01.cmake/CMakeFiles/CMakeOutput.log
+#      - /builds/root/01.cmake/CMakeFiles/CMakeError.log
+#      - /builds/root/01.cmake/*-Linux.deb
+      - ${CI_PROJECT_DIR}   # /builds/root/01.cmake
     expire_in: 1 week
 
   cache:
     key: build-cache
     paths:
-      - /builds/root/01.cmake
+      - ${CI_PROJECT_DIR}   # /builds/root/01.cmake
 
 #See also "/builds/root/01.cmake/CMakeFiles/CMakeOutput.log".
 #See also "/builds/root/01.cmake/CMakeFiles/CMakeError.log".
@@ -63,11 +66,16 @@ build:
 
 deploy1:
   before_script:
-    - apt-get update && apt-get -y install curl
-    - echo ${CI_PROJECT_DIR}
-
+#    - apt-get update && apt-get -y install curl
+    - echo ${CI_PROJECT_DIR}   # /builds/root/01.cmake
+    - echo $CI_REGISTRY
+    - echo $CI_PROJECT_PATH
+    - echo $CI_COMMIT_REF_SLUG
+    - echo $CI_BUILD_REF
   stage: deploy
 #  when: always  # будет выполнен вне зависимости от результатов выполнения предыдущих этапов
+  tags:
+    - shell
   needs:
     - build
   dependencies:
@@ -83,4 +91,4 @@ deploy1:
   cache:
     key: build-cache
     paths:
-      - /builds/root/01.cmake
+      - ${CI_PROJECT_DIR}   # /builds/root/01.cmake
