@@ -88,8 +88,11 @@ deploy1:
 #    - echo "Do your deploy here"
 #    - curl -f -T cmake-0.0.$TRAVIS_BUILD_NUMBER-Linux.deb -ushebdim:$BINTRAY_API_KEY "https://api.bintray.com/content/shebdim/otus-cpp/homework/$TRAVIS_BUILD_NUMBER/cmake-0.0.$TRAVIS_BUILD_NUMBER-Linux.deb;deb_distribution=xenial;deb_component=main;deb_architecture=amd64;publish=1"
 #    - curl -f -T cmake-0.0.$TRAVIS_BUILD_NUMBER-Linux.deb -ueliseevz@mail.ru:$BINTRAY_API_KEY -XPUT "https://jakekobra.jfrog.io/artifactory/study-cpp/homework/$TRAVIS_BUILD_NUMBER/helloworld_project-0.0.$TRAVIS_BUILD_NUMBER-Linux.deb;deb.distribution=xenial;deb.component=main;deb.architecture=amd64;publish=1"
-    - curl -f -T cmake-0.0.${PROJECT_VERSION_PATCH}-Linux.deb -ueliseevz@mail.ru:$BINTRAY_API_KEY -XPUT "https://jakekobra.jfrog.io/artifactory/study-cpp/homework/$TRAVIS_BUILD_NUMBER/helloworld_project-0.0.$TRAVIS_BUILD_NUMBER-Linux.deb;deb.distribution=xenial;deb.component=main;deb.architecture=amd64;publish=1"
-#  only:         # шаг будет выполняться для веток develop и docker
+
+#    - curl -f -T cmake-0.0.${PROJECT_VERSION_PATCH}-Linux.deb -ueliseevz@mail.ru:$BINTRAY_API_KEY -XPUT "https://jakekobra.jfrog.io/artifactory/study-cpp/homework/$TRAVIS_BUILD_NUMBER/helloworld_project-0.0.$TRAVIS_BUILD_NUMBER-Linux.deb;deb.distribution=xenial;deb.component=main;deb.architecture=amd64;publish=1"
+     - curl -f -T cmake-..11-Linux.deb -ueliseevz@mail.ru:$BINTRAY_API_KEY -XPUT "https://jakekobra.jfrog.io/artifactory/study-cpp/homework/$TRAVIS_BUILD_NUMBER/helloworld_project-0.0.$TRAVIS_BUILD_NUMBER-Linux.deb;deb.distribution=xenial;deb.component=main;deb.architecture=amd64;publish=1"
+
+#  only:         # шаг будет выполняться для веток branch develop и docker
 #    - develop
 #    - docker
   cache:
