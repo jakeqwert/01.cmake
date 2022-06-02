@@ -91,8 +91,8 @@ deploy1:
 
 #    - curl -f -T cmake-0.0.${PROJECT_VERSION_PATCH}-Linux.deb -ueliseevz@mail.ru:$BINTRAY_API_KEY -XPUT "https://jakekobra.jfrog.io/artifactory/study-cpp/homework/$TRAVIS_BUILD_NUMBER/helloworld_project-0.0.$TRAVIS_BUILD_NUMBER-Linux.deb;deb.distribution=xenial;deb.component=main;deb.architecture=amd64;publish=1"
 #     - curl -f -T cmake-..11-Linux.deb -ueliseevz@mail.ru:$BINTRAY_API_KEY -XPUT "https://jakekobra.jfrog.io/artifactory/study-cpp/homework/11/cmake-..11-Linux.deb;deb.distribution=xenial;deb.component=main;deb.architecture=amd64;publish=1"
-    - echo $BINTRAY_API_KEY
-    - echo $PROJECT_VERSION_PATCH
+    - echo ${BINTRAY_API_KEY}
+    - echo ${PROJECT_VERSION_PATCH}
     - curl -f -T cmake-..11-Linux.deb -ueliseevz@mail.ru:AKCp8mYoSZrj8RTqJJPi7WZxmFf1f9wxnCajpMaKLA9YZpVs4vLF4ijJy9rXiwQuo2BAGuSyg -XPUT "https://jakekobra.jfrog.io/artifactory/study-cpp/homework/11/cmake-..11-Linux.deb;deb.distribution=xenial;deb.component=main;deb.architecture=amd64;publish=1"
 
 
