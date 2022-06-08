@@ -1,8 +1,10 @@
 # Запуск
-# docker-compose up -d                         запустите проект в фоновом режиме
+# docker-compose up -d                         Create and start containers /запустите проект в фоновом режиме
 # docker-compose exec gitlab-runner /bin/bash  Подключимся к контейнеру с gitlab-runner
 # ./run_tests
 # docker-compose stop                          Остановить контейнеры, запущенные в фоновом режиме
+# docker-compose start                         Start services
+# docker-compose restart                       Restart services
 # docker-compose down                          не просто останавливает все запущенные контейнеры, но и удаляет их
 # docker compose config                        отображения конфигурации, используемой Docker Compose для запуска реального проекта, + ошибки подробно
 
@@ -59,9 +61,9 @@ services:
 
     container_name: gitlab-runner
     hostname: gitlab-runner
-    extra_hosts:   # добавить сопоставление имен хостов. Использует те же значения, что и параметр клиента docker --add-host.
-      - "gitlab:172.25.0.3"
-#      - gitlab:172.25.0.3
+#    extra_hosts:   # добавить сопоставление имен хостов. Использует те же значения, что и параметр клиента docker --add-host.
+#      - "gitlab:172.25.0.3"
+##      - gitlab:172.25.0.3
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - gitlab-runner-config:/etc/gitlab-runner
