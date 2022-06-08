@@ -7,8 +7,6 @@
 # can use versions as well, like gcc:5.2
 # see https://hub.docker.com/_/gcc/
 #image: gcc
-#image: xenial
-#image: bionic
 #  docker pull ubuntu:bionic
 image: ubuntu:bionic
 
