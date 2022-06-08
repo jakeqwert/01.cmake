@@ -9,9 +9,13 @@
 version: '3.5'
 volumes:
   gitlab-config-vol:
+    name: gitlab-config-vol    # чтобы использовал это имя, а не свое придумал, т.к. я уже в это положил данные
   gitlab-log-vol:
+    name: gitlab-log-vol
   gitlab-data-vol:
+    name: gitlab-data-vol
   gitlab-runner-config:
+    name: gitlab-runner-config
 networks:
   gitlab-network:
 services:
@@ -25,6 +29,10 @@ services:
 
   gitlab:
     image: gitlab/gitlab-ce:latest
+#    restart: always
+    container_name: gitlab
+    hostname: gitlab
+
     volumes:
       - gitlab-config-vol:/etc/gitlab
       - gitlab-log-vol:/var/log/gitlab
@@ -43,6 +51,10 @@ services:
 
   gitlab-runner:
     image: gitlab/gitlab-runner:latest
+
+    container_name: gitlab-runner
+    hostname: gitlab-runner
+
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - gitlab-runner-config:/etc/gitlab-runner
