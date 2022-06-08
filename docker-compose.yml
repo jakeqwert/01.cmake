@@ -18,6 +18,11 @@ volumes:
     name: gitlab-runner-config
 networks:
   gitlab-network:
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.25.0.0/16
+
 services:
 
 #  docker-nginx:
@@ -54,7 +59,9 @@ services:
 
     container_name: gitlab-runner
     hostname: gitlab-runner
-
+    extra_hosts:   # добавить сопоставление имен хостов. Использует те же значения, что и параметр клиента docker --add-host.
+      - "gitlab:172.25.0.3"
+#      - gitlab:172.25.0.3
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - gitlab-runner-config:/etc/gitlab-runner
@@ -64,3 +71,4 @@ services:
 #      - PMA_HOST=docker-mariadb
     networks:
       - gitlab-network
+
