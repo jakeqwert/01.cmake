@@ -94,7 +94,7 @@ deploy1:
 #    - echo ${BINTRAY_API_KEY}
       # AKCp8mYoSZrj8RTqJJPi7WZxmFf1f9wxnCajpMaKLA9YZpVs4vLF4ijJy9rXiwQuo2BAGuSyg
 #    - echo ${PROJECT_VERSION_PATCH}
-    - curl -f -T cmake-..12-Linux.deb -ueliseevz@mail.ru:${BINTRAY_API_KEY} -XPUT "https://jakekobra.jfrog.io/artifactory/study-cpp/homework/12/cmake-..12-Linux.deb;deb.distribution=xenial;deb.component=main;deb.architecture=amd64;publish=1"
+    - curl -f -T cmake-..11-Linux.deb -ueliseevz@mail.ru:${BINTRAY_API_KEY} -XPUT "https://jakekobra.jfrog.io/artifactory/study-cpp/homework/11/cmake-..11-Linux.deb;deb.distribution=xenial;deb.component=main;deb.architecture=amd64;publish=1"
 
 
 #  only:         # шаг будет выполняться для веток branch develop и docker
