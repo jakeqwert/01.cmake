@@ -105,8 +105,9 @@ deploy1:
 #    - echo ${PROJECT_VERSION_PATCH}
 #    - echo $env:CI_PROJECT_DIR   #  :CI_PROJECT_DIR
 #    - echo $env:CI_BUILD_ID      #  :CI_BUILD_ID
-    - curl -f -T cmake-..11-Linux.deb -ueliseevz@mail.ru:${BINTRAY_API_KEY} -XPUT "https://jakekobra.jfrog.io/artifactory/study-cpp/homework/11/cmake-..11-Linux.deb;deb.distribution=xenial;deb.component=main;deb.architecture=amd64;publish=1"
-
+    - ls -la
+#    - curl -f -T cmake-..11-Linux.deb -ueliseevz@mail.ru:${BINTRAY_API_KEY} -XPUT "https://jakekobra.jfrog.io/artifactory/study-cpp/homework/11/cmake-..11-Linux.deb;deb.distribution=xenial;deb.component=main;deb.architecture=amd64;publish=1"
+    - curl -f -T cmake-..${PROJECT_VERSION_PATCH}-Linux.deb -ueliseevz@mail.ru:${BINTRAY_API_KEY} -XPUT "https://jakekobra.jfrog.io/artifactory/study-cpp/homework/11/cmake-..${PROJECT_VERSION_PATCH}-Linux.deb;deb.distribution=xenial;deb.component=main;deb.architecture=amd64;publish=1"
 
 #  only:         # шаг будет выполняться для веток branch develop и docker
 #    - develop
