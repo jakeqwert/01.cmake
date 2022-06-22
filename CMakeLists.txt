@@ -13,6 +13,14 @@ set(PROJECT_VERSION_MAJOR 1)
 set(PROJECT_VERSION_MINOR 1)
 set(PROJECT_VERSION_PATCH 15)
 
+set(ENV{PROJECT_VERSION_MAJOR} 1)
+set(ENV{PROJECT_VERSION_MINOR} 1)
+set(ENV{PROJECT_VERSION_PATCH} 15)
+
+# задать переменную окружения
+#set(ENV{MYENVVAR} "My-Content")
+#message($ENV{MYENVVAR})
+
 # Gitlab CI  $CI_PIPELINE_IID  CI_PIPELINE_ID  CI_COMMIT_SHA CI_COMMIT_SHORT_SHA
 #                       docker build . -t myapp:$CI_COMMIT_SHA
 #project(cmake VERSION 0.0.1$ENV{CI_COMMIT_SHORT_SHA})
