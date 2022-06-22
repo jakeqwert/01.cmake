@@ -17,9 +17,24 @@ set(ENV{PROJECT_VERSION_MAJOR} 1)
 set(ENV{PROJECT_VERSION_MINOR} 1)
 set(ENV{PROJECT_VERSION_PATCH} 15)
 
+message($ENV{CI_PIPELINE_ID})
+
 # задать переменную окружения
 #set(ENV{MYENVVAR} "My-Content")
 #message($ENV{MYENVVAR})
+
+#alex@alex-ubuntu:~$ export MYENVVAR=FooBarBaz
+#alex@alex-ubuntu:~$ cat test.cmake
+#cmake_minimum_required(VERSION 3.20)
+#message($ENV{MYENVVAR})
+#set(ENV{MYENVVAR} "My-Content")
+#message($ENV{MYENVVAR})
+#alex@alex-ubuntu:~$ cmake -P test.cmake
+#FooBarBaz
+#My-Content
+#alex@alex-ubuntu:~$ echo $MYENVVAR  //CMake может как считывать переменную среды, так и записывать в нее в процессе, но это не влияет на среду управляющего процесса
+#FooBarBaz
+
 
 # Gitlab CI  $CI_PIPELINE_IID  CI_PIPELINE_ID  CI_COMMIT_SHA CI_COMMIT_SHORT_SHA
 #                       docker build . -t myapp:$CI_COMMIT_SHA
