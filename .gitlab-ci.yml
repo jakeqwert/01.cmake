@@ -101,8 +101,8 @@ deploy1:
 #    - echo ${BINTRAY_API_KEY}
       # AKCp8mYoSZrj8RTqJJPi7WZxmFf1f9wxnCajpMaKLA9YZpVs4vLF4ijJy9rXiwQuo2BAGuSyg
 #    - echo ${PROJECT_VERSION_PATCH}
-    - echo $env:CI_PROJECT_DIR
-    - echo $env:CI_BUILD_ID
+#    - echo $env:CI_PROJECT_DIR   #  :CI_PROJECT_DIR
+#    - echo $env:CI_BUILD_ID      #  :CI_BUILD_ID
     - curl -f -T cmake-..11-Linux.deb -ueliseevz@mail.ru:${BINTRAY_API_KEY} -XPUT "https://jakekobra.jfrog.io/artifactory/study-cpp/homework/11/cmake-..11-Linux.deb;deb.distribution=xenial;deb.component=main;deb.architecture=amd64;publish=1"
 
 
