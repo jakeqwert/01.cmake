@@ -107,9 +107,9 @@ deploy1:
     #    - echo $env:CI_PROJECT_DIR   #  :CI_PROJECT_DIR
     #    - echo $env:CI_BUILD_ID      #  :CI_BUILD_ID
     - ls -la
-    - echo ${CI_PIPELINE_ID}
+    - echo "CI_PIPELINE_ID = ${CI_PIPELINE_ID}"
     #    - curl -f -T cmake-..11-Linux.deb -ueliseevz@mail.ru:${BINTRAY_API_KEY} -XPUT "https://jakekobra.jfrog.io/artifactory/study-cpp/homework/11/cmake-..11-Linux.deb;deb.distribution=xenial;deb.component=main;deb.architecture=amd64;publish=1"
-    - curl -f -T cmake-${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}.${PROJECT_VERSION_PATCH}-Linux.deb -ueliseevz@mail.ru:${BINTRAY_API_KEY} -XPUT "https://jakekobra.jfrog.io/artifactory/study-cpp/homework/11/cmake-..${PROJECT_VERSION_PATCH}-Linux.deb;deb.distribution=xenial;deb.component=main;deb.architecture=amd64;publish=1"
+    - curl -f -T cmake-1.1.${CI_PIPELINE_ID}-Linux.deb -ueliseevz@mail.ru:${BINTRAY_API_KEY} -XPUT "https://jakekobra.jfrog.io/artifactory/study-cpp/homework/11/cmake-1.1.${CI_PIPELINE_ID}-Linux.deb;deb.distribution=xenial;deb.component=main;deb.architecture=amd64;publish=1"
 
 #  only:         # шаг будет выполняться для веток branch develop и docker
 #    - develop
