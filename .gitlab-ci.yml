@@ -10,23 +10,27 @@
 #  docker pull ubuntu:bionic
 image: ubuntu:bionic
 
-stages:
+#  для последовательной работы задач, добавим stages стадии сборок
+stages:      # стадии сборок
   - build
   - deploy
 
 before_script:      # перед каждым job
   - echo "Hello"
+#  - CHCP 65001                # установим кодировку страницы в utf-8 for Win only
 
-
-build:
+build:  # задачи, название задачи
   # instead of calling g++ directly you can also use some build toolkit like make
   # install the necessary build tools when needed
   # autoconf g++
   before_script:
     - apt-get update && apt-get -y install file build-essential cmake libboost-test-dev libspdlog-dev
 
-  stage: build
-  tags:
+  stage: build  # связываем задачу со стадией stages  build
+#   only:          # только для заданной ветки
+#     refs:
+#       - develop  # ветка репозитория, команда будет выполняться на этой ветки (при коммите в нее)
+  tags:         # на каких раннерах будет запускаться (с метками)
     - docker
   script:
 #    - g++ helloworld.cpp -o mybinary
@@ -34,7 +38,8 @@ build:
     - cmake --build .
     - cmake --build . --target test
     - cmake --build . --target package
-  artifacts:
+  artifacts: # подключаем артефакт
+             # подцепим/заберем к GitLab CI отчеты полученные после выполнения задачи
 #    untracked: true #для добавления всех неотслеживаемых файлов Git в качестве артефактов (вместе с путями, определенными в artifacts:paths)
     paths:     # прикрепляем как обычные файлы
 #      - mybinary
@@ -74,6 +79,12 @@ deploy1:
     - echo $CI_BUILD_REF     # 6bf534881620ee9016d6fdbee778d0b5786dc900
   stage: deploy
 #  when: always  # будет выполнен вне зависимости от результатов выполнения предыдущих этапов
+#  variables:
+#    GIT_STRATEGY: none    # чтобы отключить стандартное поведение GitLab CI, очищать локальный репозиторий от всех изменений сделанных предыдущими задачами,
+#    # у нас не будет созданной программы из предыдущего этапа build
+#    # отключит очистку локального репозитория в котором происходит сборка
+
+#  allow_failure: true      # если у данной задачи были ошибки, сборочная линии продожит выполнять следующие задачи, не упав на этой
   tags:
     - shell
   needs:
@@ -90,6 +101,8 @@ deploy1:
 #    - echo ${BINTRAY_API_KEY}
       # AKCp8mYoSZrj8RTqJJPi7WZxmFf1f9wxnCajpMaKLA9YZpVs4vLF4ijJy9rXiwQuo2BAGuSyg
 #    - echo ${PROJECT_VERSION_PATCH}
+    - echo $env:CI_PROJECT_DIR
+    - echo $env:CI_BUILD_ID
     - curl -f -T cmake-..11-Linux.deb -ueliseevz@mail.ru:${BINTRAY_API_KEY} -XPUT "https://jakekobra.jfrog.io/artifactory/study-cpp/homework/11/cmake-..11-Linux.deb;deb.distribution=xenial;deb.component=main;deb.architecture=amd64;publish=1"
 
 

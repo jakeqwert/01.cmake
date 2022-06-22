@@ -8,6 +8,11 @@
 # docker-compose down                          не просто останавливает все запущенные контейнеры, но и удаляет их
 # docker compose config                        отображения конфигурации, используемой Docker Compose для запуска реального проекта, + ошибки подробно
 
+# http://gitlab/
+
+# сделать чтобы все конфиги gitlab хранились в текущем проекте gitlab volumes
+# ./:/usr/share/nginx/html/
+
 version: '3.5'
 volumes:
   gitlab-config-vol:
@@ -44,6 +49,10 @@ services:
       - gitlab-config-vol:/etc/gitlab
       - gitlab-log-vol:/var/log/gitlab
       - gitlab-data-vol:/var/opt/gitlab
+#      - "./gitlab-config:/etc/gitlab"
+#      - "./gitlab-logs:/var/log/gitlab"
+#      - "./gitlab-data:/var/opt/gitlab"
+
 #    environment:
 #      - MYSQL_ROOT_PASSWORD=password
 #      - MYSQL_DATABASE=database
@@ -66,7 +75,10 @@ services:
 ##      - gitlab:172.25.0.3
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
+#      - "/var/run/docker.sock:/var/run/docker.sock"
       - gitlab-runner-config:/etc/gitlab-runner
+#      - "./gitlab-runner-config:/etc/gitlab-runner"
+
 #    ports:
 #      - "8095:80"
 #    environment:
