@@ -5,15 +5,17 @@ cmake_minimum_required(VERSION 3.2)
 # git push -u origin master
 
 # project(cmake VERSION 0.0.$ENV{TRAVIS_BUILD_NUMBER})
-# Jenkins    $BUILD_NUMBER
 
 # Gitlab CI нет переменной VERSION
 project(cmake)
 set(PROJECT_VERSION_MAJOR 1)
 set(PROJECT_VERSION_MINOR 1)
 #set(PROJECT_VERSION_PATCH 15)
-set(PROJECT_VERSION_PATCH $ENV{CI_PIPELINE_ID})
+#set(PROJECT_VERSION_PATCH $ENV{CI_PIPELINE_ID})
 #message($ENV{CI_PIPELINE_ID})
+
+# Jenkins    $BUILD_NUMBER
+set(PROJECT_VERSION_PATCH $BUILD_NUMBER)
 
 # задать переменную окружения
 #set(ENV{MYENVVAR} "My-Content")
