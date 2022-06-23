@@ -24,16 +24,16 @@ pipeline {
              image 'ubuntu:bionic'
         }
       }
-      stages {
-        stage('Prepare') {
-          steps {
+    }
+    stage('Prepare') {
+      steps {
             checkout scm  //чекаут репозитория  Адрес репозитория указан при настройке пайплайна в Jenkins
       //             sh './mvnw compile'   // bash-команду на компиляцию проекта.
             sh 'apt-get update && apt-get -y install file build-essential cmake libboost-test-dev libspdlog-dev'
 
-          }
-        }
-        stage('Build') {
+      }
+    }
+    stage('Build') {
           steps {
             checkout scm  //чекаут репозитория  Адрес репозитория указан при настройке пайплайна в Jenkins
 //             sh './mvnw compile'   // bash-команду на компиляцию проекта.
@@ -44,15 +44,15 @@ pipeline {
                 - cmake --build . --target package
             """
           }
-        }
+    }
 
-        stage('Deploy') {
+    stage('Deploy') {
           steps {
             sh 'ls -la'
             sh 'echo "CI_PIPELINE_ID = ${CI_PIPELINE_ID}"'
             sh 'curl -f -T cmake-1.1.${CI_PIPELINE_ID}-Linux.deb -ueliseevz@mail.ru:${BINTRAY_API_KEY} -XPUT "https://jakekobra.jfrog.io/artifactory/study-cpp/homework/11/cmake-1.1.${CI_PIPELINE_ID}-Linux.deb;deb.distribution=xenial;deb.component=main;deb.architecture=amd64;publish=1"'
           }
-        }
+    }
 
 //         stage('Test') {
 //           steps {
@@ -66,8 +66,8 @@ pipeline {
 //             sh './mvnw package -DskipTests'  //генерируем jar-архив с нашим приложением.
 //           }
 //         }
-      }
-    }
+
+
 
 
 //     stage('Push images') {
@@ -99,8 +99,8 @@ pipeline {
 //         }
 //       }
 
-    }
 
-  }
 
-}
+  } // stages
+
+}  // pipeline
