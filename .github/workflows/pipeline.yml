@@ -14,7 +14,7 @@ jobs:
         with:
           submodules: true
       - run: echo "pipeline.yml GITHUB_RUN_NUMBER = $GITHUB_RUN_NUMBER"
-      - run: sudo apt-get update && apt-get -y install file build-essential cmake libboost-test-dev libspdlog-dev
+      - run: apt-get update && apt-get -y install file build-essential cmake libboost-test-dev libspdlog-dev
       # $GITHUB_RUN_NUMBER = ${{ github.run_number }}
       - run: cmake . -DPATCH_VERSION=${{ github.run_number }} -DWITH_BOOST_TEST=ON
       - run: cmake --build .
