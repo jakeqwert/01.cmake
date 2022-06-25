@@ -1,3 +1,5 @@
+[![Actions Status](https://github.com/jakeqwert/01.cmake/workflows/cpp_CI/badge.svg)](https://github.com/jakeqwert/01.cmake/actions)
+
 # 01.cmake
 
 C++ 01.cmake
