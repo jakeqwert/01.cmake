@@ -14,9 +14,11 @@ set(PROJECT_VERSION_MINOR 1)
 #set(PROJECT_VERSION_PATCH $ENV{CI_PIPELINE_ID})  # Gitlab CI
 #message($ENV{CI_PIPELINE_ID})
 
+# GitHub Action
 # Обращение к переменным окружения из CMakeLists.txt $ENV{GITHUB_RUN_NUMBER}
 message("CMakeLists.txt GITHUB_RUN_NUMBER = $ENV{GITHUB_RUN_NUMBER}")
 set(PROJECT_VERSION_PATCH $ENV{GITHUB_RUN_NUMBER})  # GitHub Action environment-variables
+
 
 # Jenkins    $BUILD_NUMBER
 #set(PROJECT_VERSION_PATCH $BUILD_NUMBER)
