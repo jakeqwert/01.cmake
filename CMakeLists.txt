@@ -1,8 +1,8 @@
 cmake_minimum_required(VERSION 3.2)
 
-# git add .gitlab-ci.yml CMakeLists.txt
-# git commit -m "CMakeLists.txt for Gitlab CI"
-# git push -u origin master
+#set(PATCH_VERSION "1" CACHE INTERNAL "Patch version")
+#set(PROJECT_VESRION 0.0.${PATCH_VERSION})
+#project(helloworld VERSION ${PROJECT_VESRION})
 
 # project(cmake VERSION 0.0.$ENV{TRAVIS_BUILD_NUMBER})
 
@@ -51,14 +51,17 @@ set(PROJECT_VERSION_PATCH $ENV{GITHUB_RUN_NUMBER})  # GitHub Action environment-
 # ${PROJECT_VERSION_MINOR}  0
 # ${PROJECT_VERSION_PATCH}  1
 
+# Нужно ли создавать Boost-тест
+option(WITH_BOOST_TEST "Whether to build Boost test" ON)
 
 # подключаем зависимости, cmake попытается найти в системе зависимости
 # если они не устанвовлена, то будет ошибка что он не смог найти, нужно установить в систему эти зависимости
 find_package(Threads REQUIRED)
-find_package(Boost COMPONENTS unit_test_framework REQUIRED)
+#find_package(Boost COMPONENTS unit_test_framework REQUIRED)
 
 # взять шаблон version.h.in и получить из него файл ${PROJECT_SOURCE_DIR}/version.h
 configure_file(version.h.in ${PROJECT_SOURCE_DIR}/version.h)
+#configure_file(version.h.in version.h)
 # файл 'version.h'
 ##pragma once
 ##define PROJECT_VERSION_PATCH 1
@@ -78,34 +81,72 @@ add_library(helloworld lib.cpp)
 # shared динамическая библиотека helloworld исполняемый файл
 
 
-add_executable(test_version test_version.cpp)
-# test_version исполняемый файл, тесты собираются в бинарник
-
 #для сборки артифактов helloworld_cli helloworld test_version, нужны настройки конфигуратора
-set_target_properties(helloworld_cli helloworld test_version PROPERTIES
+set_target_properties(helloworld_cli helloworld PROPERTIES  # test_version перенес в if
     CXX_STANDARD 17               # стандарт cpp
     CXX_STANDARD_REQUIRED ON      # если не дотягиваем до 17 стандарт, то ошибка
-    COMPILE_OPTIONS "-Wpedantic;-Wall;-Wextra"   # опции компиляции, для линукс тут параметры
+#    COMPILE_OPTIONS "-Wpedantic;-Wall;-Wextra"   # опции компиляции, для линукс тут параметры
                      # pedantic; -all;-extra ворнинги при компиляции
 )
 
-# для сборки test_version нужно задать свойста компилятора
-set_target_properties(test_version PROPERTIES
-    COMPILE_DEFINITIONS BOOST_TEST_DYN_LINK
-    INCLUDE_DIRECTORIES ${Boost_INCLUDE_DIR}
-)
-
 # прилинковать статическую библиотеку helloworld и Threads
-target_link_libraries(helloworld_cli
-    helloworld        # статическая библиотека libhelloworld.a под линуксом
-    Threads::Threads  #
-)
+target_link_libraries(helloworld_cli  # PRIVATE
+        helloworld        # статическая библиотека libhelloworld.a под линуксом
+        Threads::Threads  #
+        )
 
-# к test_version прилинковать статическую библиотеку helloworld и Boost_LIBRARIES
-target_link_libraries(test_version
-    ${Boost_LIBRARIES}
-    helloworld          # статическая библиотека libhelloworld.a под линуксом
-)
+if(WITH_BOOST_TEST)
+    find_package(Boost COMPONENTS unit_test_framework REQUIRED)
+
+    add_executable(test_version test_version.cpp)
+    # test_version исполняемый файл, тесты собираются в бинарник
+
+    # для сборки test_version нужно задать свойста компилятора
+    set_target_properties(test_version PROPERTIES
+       COMPILE_DEFINITIONS BOOST_TEST_DYN_LINK
+       INCLUDE_DIRECTORIES ${Boost_INCLUDE_DIR}
+
+       CXX_STANDARD 17               # стандарт cpp
+       CXX_STANDARD_REQUIRED ON      # если не дотягиваем до 17 стандарт, то ошибка
+#       COMPILE_OPTIONS "-Wpedantic;-Wall;-Wextra"   # опции компиляции, для линукс тут параметры
+                 # pedantic; -all;-extra ворнинги при компиляции
+    )
+
+    # к test_version прилинковать статическую библиотеку helloworld и Boost_LIBRARIES
+    target_link_libraries(test_version
+            ${Boost_LIBRARIES}
+            helloworld          # статическая библиотека libhelloworld.a под линуксом
+            )
+endif()
+
+
+if (MSVC)
+    target_compile_options(helloworld_cli PRIVATE
+            /W4
+            )
+    target_compile_options(helloworld PRIVATE
+            /W4
+            )
+    if(WITH_BOOST_TEST)
+        target_compile_options(test_version PRIVATE
+                /W4
+                )
+    endif()
+else ()
+    target_compile_options(helloworld_cli PRIVATE
+            -Wall -Wextra -pedantic -Werror
+            )
+    target_compile_options(helloworld PRIVATE
+            -Wall -Wextra -pedantic -Werror
+            )
+    if(WITH_BOOST_TEST)
+        target_compile_options(test_version PRIVATE
+                -Wall -Wextra -pedantic -Werror
+                )
+    endif()
+endif()
+
+
 
 # установить helloworld_cli в user\bin
 install(TARGETS helloworld_cli RUNTIME DESTINATION bin)
@@ -134,8 +175,10 @@ set(CPACK_DEBIAN_PACKAGE_SHLIBDEPS ON)
 #собрать пакет
 include(CPack)
 
-# добавляет новую виртуальную цель сборки test
-enable_testing()
-# последовательно будут запущены все тесты helloworld_tests test_version
-add_test(helloworld_tests test_version)
-# задача с именем helloworld_tests, за выполнение задачи отвечает бинарник test_version
+if(WITH_BOOST_TEST)
+   # добавляет новую виртуальную цель сборки test
+   enable_testing()
+   # последовательно будут запущены все тесты helloworld_tests test_version
+   add_test(helloworld_tests test_version)
+   # задача с именем helloworld_tests, за выполнение задачи отвечает бинарник test_version
+endif()
