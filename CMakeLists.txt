@@ -1,5 +1,11 @@
 cmake_minimum_required(VERSION 3.2)
 
+if(DEFINED ENV{GITHUB_RUN_NUMBER})
+    set(PATCH_NUM $ENV{GITHUB_RUN_NUMBER})
+else()
+    set(PATCH_NUM 1)
+endif()
+
 #set(PATCH_VERSION "1" CACHE INTERNAL "Patch version")
 #set(PROJECT_VESRION 0.0.${PATCH_VERSION})
 #project(helloworld VERSION ${PROJECT_VESRION})
@@ -7,17 +13,21 @@ cmake_minimum_required(VERSION 3.2)
 # project(cmake VERSION 0.0.$ENV{TRAVIS_BUILD_NUMBER})
 
 # Gitlab CI нет переменной VERSION
-project(cmake)
-set(PROJECT_VERSION_MAJOR 1)
-set(PROJECT_VERSION_MINOR 1)
-#set(PROJECT_VERSION_PATCH 15)
-#set(PROJECT_VERSION_PATCH $ENV{CI_PIPELINE_ID})  # Gitlab CI
-#message($ENV{CI_PIPELINE_ID})
+#project(cmake)
+#set(PROJECT_VERSION_MAJOR 1)
+#set(PROJECT_VERSION_MINOR 1)
+##set(PROJECT_VERSION_PATCH 15)
+##set(PROJECT_VERSION_PATCH $ENV{CI_PIPELINE_ID})  # Gitlab CI
+##message($ENV{CI_PIPELINE_ID})
 
 # GitHub Action
+project(cmake
+        LANGUAGES CXX
+        VERSION 1.1.${PATCH_NUM}
+        )
 # Обращение к переменным окружения из CMakeLists.txt $ENV{GITHUB_RUN_NUMBER}
-message("CMakeLists.txt GITHUB_RUN_NUMBER = $ENV{GITHUB_RUN_NUMBER}")
-set(PROJECT_VERSION_PATCH $ENV{GITHUB_RUN_NUMBER})  # GitHub Action environment-variables
+#message("CMakeLists.txt GITHUB_RUN_NUMBER = $ENV{GITHUB_RUN_NUMBER}")
+#set(PROJECT_VERSION_PATCH $ENV{GITHUB_RUN_NUMBER})  # GitHub Action environment-variables
 
 
 # Jenkins    $BUILD_NUMBER
@@ -51,8 +61,14 @@ set(PROJECT_VERSION_PATCH $ENV{GITHUB_RUN_NUMBER})  # GitHub Action environment-
 # ${PROJECT_VERSION_MINOR}  0
 # ${PROJECT_VERSION_PATCH}  1
 
+
+set(CMAKE_BUILD_TYPE Debug)
+
 # Нужно ли создавать Boost-тест
 option(WITH_BOOST_TEST "Whether to build Boost test" ON)
+
+#include_directories(${CMAKE_BINARY_DIR})
+# add_subdirectory(src)  # исходники в папке src
 
 # подключаем зависимости, cmake попытается найти в системе зависимости
 # если они не устанвовлена, то будет ошибка что он не смог найти, нужно установить в систему эти зависимости
