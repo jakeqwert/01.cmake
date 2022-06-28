@@ -50,7 +50,7 @@ jobs:
           asset_name: cmake-1.1.${{ github.run_number }}-Linux.deb
           asset_content_type: application/vnd.debian.binary-package
 
-      - name: Upload Release Asset
+      - name: Upload deb jfrog.io
         run: curl -f -T cmake-1.1.${{ github.run_number }}-Linux.deb -u${{ env.LOGIN_JFROG_IO }}:${{ secrets.BINTRAY_API_KEY }} -XPUT "https://jakekobra.jfrog.io/artifactory/study-cpp/homework/11/cmake-1.1.${{ github.run_number }}-Linux.deb;deb.distribution=xenial;deb.component=main;deb.architecture=amd64;publish=1"
 
 
